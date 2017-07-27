@@ -1,5 +1,14 @@
-ReactDOM.render
-(
-	<h1>User DB Admin Portal</h1>,
-	document.getElementById('example')
+class Portal extends React.Component {
+	render() {
+		return (
+			<div className="portal">
+				Welcome to the user portal
+			</div>
+			);
+	}
+}
+
+ReactDOM.render(
+  <Portal />,
+  document.getElementById('main')
 );

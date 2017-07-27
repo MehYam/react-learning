@@ -1,5 +1,11 @@
-ReactDOM.render(React.createElement(
-	'h1',
-	null,
-	'User DB Admin Portal'
-), document.getElementById('example'));
+class Portal extends React.Component {
+	render() {
+		return React.createElement(
+			"div",
+			{ className: "portal" },
+			"Welcome to the user portal"
+		);
+	}
+}
+
+ReactDOM.render(React.createElement(Portal, null), document.getElementById('main'));
