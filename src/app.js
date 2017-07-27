@@ -11,10 +11,11 @@ class Portal extends React.Component
          ]
       };
    }
-   addUser() {
-      console.log("addUser.this: " + this);
+   addUser(user) {
       var newUsers = this.state.users.slice();
-      newUsers.push({"id":"4", "firstName": "foo", "lastName": "bar"});
+      user.id = newUsers.length + 1;
+      newUsers.push(user);
+
       this.setState({users: newUsers});
    }
    render()
@@ -26,8 +27,7 @@ class Portal extends React.Component
             <hr/>
             <UserTable users={this.state.users}/>
             <hr/>
-            <UserAdd/>
-            <button onClick={() => this.addUser()}>Add User</button>
+            <UserAdd onSubmit={(u) => this.addUser(u)}/>
         </div>
       );
    }
@@ -71,9 +71,33 @@ class UserTable extends React.Component {
 }
 
 class UserAdd extends React.Component {
-    render() {
-        return <div>UserAdd</div>;
-    }
+   constructor(props) {
+      super(props);
+      this.state = {value: ''};
+
+      this.handleSubmit = this.handleSubmit.bind(this);
+   }
+
+   handleSubmit(e) {
+      e.preventDefault();
+
+      var form = document.forms.userAdd;
+      var user = { firstName: form.first.value, lastName: form.last.value };
+
+      this.props.onSubmit(user);
+   }
+
+   render() {
+      return (
+         <div>
+            <form name="userAdd" onSubmit={this.handleSubmit}>
+               <input type="text" name="first" placeholder="first name" defaultValue="foo"/>
+               <input type="text" name="last"  placeholder="last name" defaultValue="bar"/>
+               <input type="submit" value="Add User"/>
+            </form>
+         </div>
+      );
+   }
 }
 
 ReactDOM.render(
