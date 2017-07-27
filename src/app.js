@@ -1,5 +1,5 @@
 ReactDOM.render
 (
-	<h1>Hello, world!</h1>,
+	<h1>User DB Admin Portal</h1>,
 	document.getElementById('example')
 );

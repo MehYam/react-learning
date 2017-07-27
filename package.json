@@ -7,7 +7,7 @@
   "license": "ISC",
   "private": true,
   "devDependencies": {
-    "babel-cli": "^6.24.1"
+    "babel-cli": "*"
   },
   "dependencies": {
      "babel-preset-react": "*",
