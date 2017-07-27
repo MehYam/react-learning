@@ -1,5 +1,3 @@
-var sampleData = [{ "id": "1", "firstName": "Kai", "lastName": "Arnold" }, { "id": "2", "firstName": "Kira", "lastName": "Tsu" }, { "id": "3", "firstName": "Piper", "lastName": "BoBo" }];
-
 class Portal extends React.Component {
 	render() {
 		return React.createElement(
@@ -63,11 +61,12 @@ class UserTable extends React.Component {
 	renderRow(user) {
 		return React.createElement(UserRow, { key: user.id, id: user.id, lastName: user.lastName, firstName: user.firstName });
 	}
+	foo() {
+		return 3;
+	}
 	render() {
-		var userRows = this.props.users.map(function (user) {
-			return React.createElement(UserRow, { key: user.id, id: user.id, lastName: user.lastName, firstName: user.firstName });
-		});
-		//var users = this.props.users;
+		var renderRowCapture = this.renderRow;
+		var userRows = this.props.users.map(renderRowCapture);
 		return React.createElement(
 			"table",
 			null,
@@ -112,5 +111,7 @@ class UserAdd extends React.Component {
 		);
 	}
 }
+
+var sampleData = [{ "id": "1", "firstName": "Kai", "lastName": "Arnold" }, { "id": "2", "firstName": "Kira", "lastName": "Tsu" }, { "id": "3", "firstName": "Piper", "lastName": "BoBo" }];
 
 ReactDOM.render(React.createElement(Portal, null), document.getElementById('main'));

@@ -1,11 +1,3 @@
-var sampleData = 
-[
-	{"id":"1", "firstName": "Kai", "lastName": "Arnold"},
-	{"id":"2", "firstName": "Kira", "lastName": "Tsu"},
-	{"id":"3", "firstName": "Piper", "lastName": "BoBo"}
-];
-
-
 class Portal extends React.Component {
 	render() {
 		return (
@@ -49,9 +41,10 @@ class UserTable extends React.Component {
 	renderRow(user) {
 		return <UserRow key={user.id} id={user.id} lastName={user.lastName} firstName={user.firstName}/>;
 	}
+	foo() { return 3; }
 	render() {
-		var userRows = this.props.users.map(function(user) { return <UserRow key={user.id} id={user.id} lastName={user.lastName} firstName={user.firstName}/> } );
-		//var users = this.props.users;
+		var renderRowCapture = this.renderRow;
+		var userRows = this.props.users.map(renderRowCapture);
 		return (
 			<table>
 				<thead>
@@ -74,6 +67,13 @@ class UserAdd extends React.Component {
 		return <div>UserAdd</div>;
 	}
 }
+
+var sampleData = 
+[
+	{"id":"1", "firstName": "Kai", "lastName": "Arnold"},
+	{"id":"2", "firstName": "Kira", "lastName": "Tsu"},
+	{"id":"3", "firstName": "Piper", "lastName": "BoBo"}
+];
 
 ReactDOM.render(
   <Portal />,
