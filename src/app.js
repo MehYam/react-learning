@@ -1,22 +1,39 @@
-function Portal()
+class Portal extends React.Component
 {
-   return (
-     <div>
-         <h1>User Admin Portal</h1>
-         <UserFilter/>
-         <hr/>
-         <UserTable/>
-         <hr/>
-         <UserAdd/>
-     </div>
-   );
+   constructor() {
+      super();
+      this.state = {
+         users: 
+         [
+             {"id":"1", "firstName": "Kai", "lastName": "Arnold"},
+             {"id":"2", "firstName": "Kira", "lastName": "Tsu"},
+             {"id":"3", "firstName": "Piper", "lastName": "BoBo"}
+         ]
+      };
+   }
+   addUser() {
+      console.log("addUser.this: " + this);
+      var newUsers = this.state.users.slice();
+      newUsers.push({"id":"4", "firstName": "foo", "lastName": "bar"});
+      this.setState({users: newUsers});
+   }
+   render()
+   {
+      return (
+        <div>
+            <h1>User Admin Portal</h1>
+            <UserFilter/>
+            <hr/>
+            <UserTable users={this.state.users}/>
+            <hr/>
+            <UserAdd/>
+            <button onClick={() => this.addUser()}>Add User</button>
+        </div>
+      );
+   }
 }
 
-class UserFilter extends React.Component {
-    render() {
-        return <div>UserFilter</div>;
-    }
-}
+function UserFilter() {return <div>UserFilter</div>;}
 
 function UserRow(props)
 {
@@ -30,24 +47,12 @@ function UserRow(props)
 }
 
 class UserTable extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            users: 
-            [
-                {"id":"1", "firstName": "Kai", "lastName": "Arnold"},
-                {"id":"2", "firstName": "Kira", "lastName": "Tsu"},
-                {"id":"3", "firstName": "Piper", "lastName": "BoBo"}
-            ]
-        };
-    }
     renderRow(user) {
         return <UserRow key={user.id} id={user.id} lastName={user.lastName} firstName={user.firstName}/>;
     }
-    foo() { return 3; }
     render() {
         var renderRowCapture = this.renderRow;
-        var userRows = this.state.users.map(renderRowCapture);
+        var userRows = this.props.users.map(renderRowCapture);
         return (
             <table>
                 <thead>
