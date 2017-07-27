@@ -1,79 +1,75 @@
-class Portal extends React.Component {
-	render() {
-		return (
-			<div>
-				<h1>User Admin Portal</h1>
-				<UserFilter/>
-				<hr/>
-				<UserTable users={sampleData}/>
-				<hr/>
-				<UserAdd/>
-			</div>
-			);
-	}
+function Portal()
+{
+   return (
+     <div>
+         <h1>User Admin Portal</h1>
+         <UserFilter/>
+         <hr/>
+         <UserTable/>
+         <hr/>
+         <UserAdd/>
+     </div>
+   );
 }
 
 class UserFilter extends React.Component {
-	render() {
-		return <div>UserFilter</div>;
-	}
+    render() {
+        return <div>UserFilter</div>;
+    }
 }
 
-class UserRow extends React.Component {
-	render() {
-		return (
-			<tr>
-				<td>{this.props.id}</td>
-				<td>{this.props.lastName}</td>
-				<td>{this.props.firstName}</td>
-			</tr>
-		);
-	}
+function UserRow(props)
+{
+    return (
+        <tr>
+            <td>{props.id}</td>
+            <td>{props.lastName}</td>
+            <td>{props.firstName}</td>
+        </tr>
+    );
 }
 
 class UserTable extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			users: Array(2).fill(null)
-		};
-	}
-	renderRow(user) {
-		return <UserRow key={user.id} id={user.id} lastName={user.lastName} firstName={user.firstName}/>;
-	}
-	foo() { return 3; }
-	render() {
-		var renderRowCapture = this.renderRow;
-		var userRows = this.props.users.map(renderRowCapture);
-		return (
-			<table>
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Last</th>
-						<th>First</th>
-					</tr>
-				</thead>
-				<tbody>
-					{userRows}
-				</tbody>
-			</table>
-		);
-	}
+    constructor() {
+        super();
+        this.state = {
+            users: 
+            [
+                {"id":"1", "firstName": "Kai", "lastName": "Arnold"},
+                {"id":"2", "firstName": "Kira", "lastName": "Tsu"},
+                {"id":"3", "firstName": "Piper", "lastName": "BoBo"}
+            ]
+        };
+    }
+    renderRow(user) {
+        return <UserRow key={user.id} id={user.id} lastName={user.lastName} firstName={user.firstName}/>;
+    }
+    foo() { return 3; }
+    render() {
+        var renderRowCapture = this.renderRow;
+        var userRows = this.state.users.map(renderRowCapture);
+        return (
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Last</th>
+                        <th>First</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {userRows}
+                </tbody>
+            </table>
+        );
+    }
 }
 
 class UserAdd extends React.Component {
-	render() {
-		return <div>UserAdd</div>;
-	}
+    render() {
+        return <div>UserAdd</div>;
+    }
 }
-
-var sampleData = 
-[
-	{"id":"1", "firstName": "Kai", "lastName": "Arnold"},
-	{"id":"2", "firstName": "Kira", "lastName": "Tsu"},
-	{"id":"3", "firstName": "Piper", "lastName": "BoBo"}
-];
 
 ReactDOM.render(
   <Portal />,
