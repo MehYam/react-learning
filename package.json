@@ -1,13 +1,16 @@
 {
   "name": "learning",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "test app",
   "main": "webapp.js",
   "author": "cdn.kai@gmail.com",
   "license": "ISC",
-  "version": "0.0.1",
   "private": true,
+  "devDependencies": {
+    "babel-cli": "^6.24.1"
+  },
   "dependencies": {
-    "express": "*"
-  }  
+     "babel-preset-react": "*",
+     "express": "*"
+  }
 }
