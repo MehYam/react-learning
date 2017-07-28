@@ -1,20 +1,33 @@
 const express = require('express')
 const app = express()
 
+class Users {
+   constructor() {
+      this.users = [];
+      this.currentID = 0;
+   }
+   add(user) {
+      user.id = this.currentID++;
+      this.users.push(user);
+   }
+   get list() { return this.users; }
+   get JSON() { return JSON.stringify(this.users); }
+}
+
+let users = new Users();
+users.add({firstName: "Kai", lastName: "Arnold"});
+users.add({firstName: "Kira", lastName: "Tsu"});
+users.add({firstName: "Piper", lastName: "BoBo"});
+
+////////////////////////////////////////////
+
 // app.get('/', function (req, res) {
 //   res.send('Hello World - from webapp.js')
 // })
 
 app.use(express.static('static'));
 
-app.get('/api/users', (req, res) => res.status(200).send(JSON.stringify(users[requests++ % users.length])) );
+let requests = 0;
+app.get('/api/users', (req, res) => res.status(200).send(users.JSON) );
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));
-
-var requests = 0;
-var users = 
-[
-    {id:"1", firstName: "Kai", lastName: "Arnold"},
-    {id:"2", firstName: "Kira", lastName: "Tsu"},
-    {id:"3", firstName: "Piper", lastName: "BoBo"}
-];
