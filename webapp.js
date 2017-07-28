@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser')
 
 class Users {
    constructor() {
@@ -14,7 +15,7 @@ class Users {
    get JSON() { return JSON.stringify(this.users); }
 }
 
-let users = new Users();
+const users = new Users();
 users.add({firstName: "Kai", lastName: "Arnold"});
 users.add({firstName: "Kira", lastName: "Tsu"});
 users.add({firstName: "Piper", lastName: "BoBo"});
@@ -26,8 +27,17 @@ users.add({firstName: "Piper", lastName: "BoBo"});
 // })
 
 app.use(express.static('static'));
+app.use(bodyParser.json());
 
 let requests = 0;
-app.get('/api/users', (req, res) => res.status(200).send(users.JSON) );
+// app.get('/api/users', (req, res) => res.status(200).send(users.JSON) );
+app.post('/api/users/add', (req, res) =>
+{
+   console.log("request body: ", req.body);
+
+   let user = req.body;
+   users.add(user);
+   res.json(user);
+});
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));
