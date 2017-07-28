@@ -30,7 +30,7 @@ app.use(express.static('static'));
 app.use(bodyParser.json());
 
 let requests = 0;
-// app.get('/api/users', (req, res) => res.status(200).send(users.JSON) );
+app.get('/api/users/getAll', (req, res) => res.status(200).send(users.JSON) );
 app.post('/api/users/add', (req, res) =>
 {
    console.log("request body: ", req.body);

@@ -1,9 +1,12 @@
 class Portal extends React.Component {
    constructor() {
       super();
-      this.state = {
-         users: [{ "id": "1", "firstName": "Kai", "lastName": "Arnold" }, { "id": "2", "firstName": "Kira", "lastName": "Tsu" }, { "id": "3", "firstName": "Piper", "lastName": "BoBo" }]
-      };
+      this.state = { users: [] };
+   }
+   componentDidMount() {
+      $.ajax('/api/users/getAll').done(function (userArray) {
+         this.setState({ users: JSON.parse(userArray) });
+      }.bind(this));
    }
    addUser(user) {
       var newUsers = this.state.users.slice();
@@ -14,17 +17,17 @@ class Portal extends React.Component {
    }
    render() {
       return React.createElement(
-         "div",
+         'div',
          null,
          React.createElement(
-            "h1",
+            'h1',
             null,
-            "User Admin Portal"
+            'User Admin Portal'
          ),
          React.createElement(UserFilter, null),
-         React.createElement("hr", null),
+         React.createElement('hr', null),
          React.createElement(UserTable, { users: this.state.users }),
-         React.createElement("hr", null),
+         React.createElement('hr', null),
          React.createElement(UserAdd, { onSubmit: u => this.addUser(u) })
       );
    }
@@ -32,28 +35,28 @@ class Portal extends React.Component {
 
 function UserFilter() {
    return React.createElement(
-      "div",
+      'div',
       null,
-      "UserFilter"
+      'UserFilter'
    );
 }
 
 function UserRow(props) {
    return React.createElement(
-      "tr",
+      'tr',
       null,
       React.createElement(
-         "td",
+         'td',
          null,
          props.id
       ),
       React.createElement(
-         "td",
+         'td',
          null,
          props.lastName
       ),
       React.createElement(
-         "td",
+         'td',
          null,
          props.firstName
       )
@@ -68,33 +71,33 @@ class UserTable extends React.Component {
       var renderRowCapture = this.renderRow;
       var userRows = this.props.users.map(renderRowCapture);
       return React.createElement(
-         "table",
+         'table',
          null,
          React.createElement(
-            "thead",
+            'thead',
             null,
             React.createElement(
-               "tr",
+               'tr',
                null,
                React.createElement(
-                  "th",
+                  'th',
                   null,
-                  "ID"
+                  'ID'
                ),
                React.createElement(
-                  "th",
+                  'th',
                   null,
-                  "Last"
+                  'Last'
                ),
                React.createElement(
-                  "th",
+                  'th',
                   null,
-                  "First"
+                  'First'
                )
             )
          ),
          React.createElement(
-            "tbody",
+            'tbody',
             null,
             userRows
          )
@@ -121,14 +124,14 @@ class UserAdd extends React.Component {
 
    render() {
       return React.createElement(
-         "div",
+         'div',
          null,
          React.createElement(
-            "form",
-            { name: "userAdd", onSubmit: this.handleSubmit },
-            React.createElement("input", { type: "text", name: "first", placeholder: "first name", defaultValue: "foo" }),
-            React.createElement("input", { type: "text", name: "last", placeholder: "last name", defaultValue: "bar" }),
-            React.createElement("input", { type: "submit", value: "Add User" })
+            'form',
+            { name: 'userAdd', onSubmit: this.handleSubmit },
+            React.createElement('input', { type: 'text', name: 'first', placeholder: 'first name', defaultValue: 'foo' }),
+            React.createElement('input', { type: 'text', name: 'last', placeholder: 'last name', defaultValue: 'bar' }),
+            React.createElement('input', { type: 'submit', value: 'Add User' })
          )
       );
    }
