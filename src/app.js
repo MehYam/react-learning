@@ -6,7 +6,7 @@ class Portal extends React.Component
    }
    componentDidMount() {
       $.ajax('/api/users/getAll').done( function(userArray) {
-         this.setState({users: JSON.parse(userArray)});
+         this.setState({users: userArray});
       }.bind(this));
    }
    addUser(user) {
@@ -52,16 +52,16 @@ function UserRow(props)
 {
     return (
         <tr>
-            <td>{props.id}</td>
-            <td>{props.lastName}</td>
-            <td>{props.firstName}</td>
+            <td>{props.user._id}</td>
+            <td>{props.user.lastName}</td>
+            <td>{props.user.firstName}</td>
         </tr>
     );
 }
 
 class UserTable extends React.Component {
    renderRow(user) {
-      return <UserRow key={user.id} id={user.id} lastName={user.lastName} firstName={user.firstName}/>;
+      return <UserRow key={user._id} user={user}/>;
    }
    render() {
       var renderRowCapture = this.renderRow;

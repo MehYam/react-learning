@@ -12,6 +12,7 @@
   "dependencies": {
      "babel-preset-react": "*",
      "body-parser": "*",
-     "express": "*"
+     "express": "*",
+     "mongodb": "*"
   }
 }

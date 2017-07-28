@@ -5,7 +5,7 @@ class Portal extends React.Component {
    }
    componentDidMount() {
       $.ajax('/api/users/getAll').done(function (userArray) {
-         this.setState({ users: JSON.parse(userArray) });
+         this.setState({ users: userArray });
       }.bind(this));
    }
    addUser(user) {
@@ -61,24 +61,24 @@ function UserRow(props) {
       React.createElement(
          'td',
          null,
-         props.id
+         props.user._id
       ),
       React.createElement(
          'td',
          null,
-         props.lastName
+         props.user.lastName
       ),
       React.createElement(
          'td',
          null,
-         props.firstName
+         props.user.firstName
       )
    );
 }
 
 class UserTable extends React.Component {
    renderRow(user) {
-      return React.createElement(UserRow, { key: user.id, id: user.id, lastName: user.lastName, firstName: user.firstName });
+      return React.createElement(UserRow, { key: user._id, user: user });
    }
    render() {
       var renderRowCapture = this.renderRow;
