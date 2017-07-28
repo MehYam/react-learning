@@ -10,11 +10,26 @@ class Portal extends React.Component
       }.bind(this));
    }
    addUser(user) {
-      var newUsers = this.state.users.slice();
-      user.id = newUsers.length + 1;
-      newUsers.push(user);
 
-      this.setState({users: newUsers});
+      //KAI: I fundamentally disagree with this approach, but "it works for now".  Guessing what the server's data
+      // looks like after a call is just asking for trouble.
+      $.ajax({
+         type:'POST', url: '/api/users/add', contentType: 'application/json',
+         data: JSON.stringify(user),
+         success: function(data) 
+         {
+            var newUsers = this.state.users.slice();
+
+            console.log("new user:", JSON.stringify(data));
+
+            newUsers.push(data);
+            this.setState({users: newUsers});
+         }.bind(this),
+         error: (xhr, status, err) => 
+         {
+            console.log("error adding user:", err);
+         }
+      })
    }
    render()
    {
@@ -59,12 +74,12 @@ class UserTable extends React.Component {
                <th>Last</th>
                <th>First</th>
             </tr>
-         </thead>
+            </thead>
             <tbody>
                {userRows}
             </tbody>
          </table>
-         );
+      );
    }
 }
 
